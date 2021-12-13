@@ -1,0 +1,75 @@
+.box-toolbar-light div{
+    position:absolute;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 6px solid rgba(255,255,255,0.8);
+  }
+  
+  .box-toolbar-dark div{
+    position:absolute;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 6px solid rgba(63, 60, 60, 0.8);
+  }
+  
+  .box-toolbar-light div:nth-child(1){
+    top: 2%;
+    left: 15%;
+    animation: animate 9s linear infinite;
+  }
+  
+  .box-toolbar-light div:nth-child(2){
+    top: 6%;
+    left: 37%;
+    animation: animate 17s linear infinite;
+  }
+  
+  .box-toolbar-light div:nth-child(3){
+    top: 4%;
+    left: 54%;
+    animation: animate 12s linear infinite;
+  }
+  
+  .box-toolbar-light div:nth-child(4){
+    top: 1%;
+    left: 65%;
+    animation: animate 5s linear infinite;
+  }
+  
+  .box-toolbar-light div:nth-child(5){
+    top: 8%;
+    left: 80%;
+    animation: animate 15s linear infinite;
+  }
+  
+  .box-toolbar-dark div:nth-child(1){
+    top: 2%;
+    left: 15%;
+    animation: animate 9s linear infinite;
+  }
+  
+  .box-toolbar-dark div:nth-child(2){
+    top: 6%;
+    left: 37%;
+    animation: animate 17s linear infinite;
+  }
+  
+  .box-toolbar-dark div:nth-child(3){
+    top: 4%;
+    left: 54%;
+    animation: animate 12s linear infinite;
+  }
+  
+  .box-toolbar-dark div:nth-child(4){
+    top: 1%;
+    left: 65%;
+    animation: animate 5s linear infinite;
+  }
+  
+  .box-toolbar-dark div:nth-child(5){
+    top: 8%;
+    left: 80%;
+    animation: animate 15s linear infinite;
+  }

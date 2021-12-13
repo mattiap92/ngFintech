@@ -1,0 +1,10 @@
+<mat-sidenav-container class="full-page-centered">
+    <mat-sidenav #sidenavReference mode="side" position="end">
+      <card-form #cardFormReference (addNewCardButtonClicked)="manageAddNewCardButtonClicked($event)" (cancelButtonClicked)="resetFormAndCloseSidenav()"></card-form>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <card-list (cardMovementsToCheckId)="manageSelectedCardMovementsChecking($event)" (cardToDeleteId)="manageDeleteButtonClicked($event)" (addCardButtonClicked)="sidenavReference.toggle()" [cards]="origin_cards$ | async"></card-list>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+  

@@ -1,0 +1,33 @@
+<mat-card class="full-page-height-card">
+  <mat-card-content>
+<mat-form-field appearance="fill">
+  <mat-label>{{selectCard_label}}</mat-label>
+  <mat-select [value]="selectedCardId$.getValue()" (selectionChange)="setSelectedCardIdFromSelect($event.value)">
+    <mat-option>{{noneOption_label}}</mat-option>
+    <mat-option *ngFor="let card of origin_cards$ | async" [value]="card._id">
+      {{card.number}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+  
+<h1 *ngIf="(this.selectedCard$ | async) as selectedCard">{{balance_label}}: €{{selectedCard.amount}}</h1>
+
+
+<movement *ngFor="let movement of movements$ | async"
+          [date]="movement?.timestamp | date: 'dd/MM/yyyy'"
+          [amount]="movement?.amount"
+          [type]="movement?.type"
+          [title]="movement?.title"
+          [description]="movement?.description"
+></movement>
+<button
+  *ngIf="shouldLoadMore$ | async as shouldLoadMore"
+   mat-stroked-button
+   style="width: 100%;"
+   color="primary"
+   (click)="loadMore()"
+ >
+   {{loadMore_word}} 
+</button>
+</mat-card-content>
+</mat-card> 

@@ -1,0 +1,33 @@
+<ng-container *ngIf="(this.state$ | async)?.type === this.LIST">
+
+    <contact-list
+        [contacts]="origin_contacts$ | async"
+        (selectionIconClicked)="shareSelectedContact($event)"
+        (editIconClicked)="setStateToEditContactMode($event)"
+        (deleteIconClicked)="deleteContact($event)"
+    ></contact-list>
+
+    <button mat-raised-button
+            style="width: 100%"
+            (click)="setStateToNewContactMode()">
+            {{newContact_word}}
+    </button>
+
+</ng-container>
+
+<ng-container *ngIf="(this.state$ | async)?.type !== this.LIST">
+
+    <button mat-raised-button
+            style="width: 100%"
+            (click)="setStateToListContactsMode()">
+            {{returnBack_word}}
+    </button>
+
+    <contact-form (saveContactButtonClicked)="saveContactFormClicked($event)"
+                  [initialContact$]="this.selectedContact$">
+    </contact-form>
+
+</ng-container>
+
+
+

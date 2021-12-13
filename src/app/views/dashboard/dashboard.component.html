@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container mat-app-background" style="height: 100%" [ngClass]="isDarkThemeMode ? 'dark-theme' : 'light-theme'">
+    <mat-sidenav fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false"
+        style="width: 220px;">
+      <mat-toolbar class="menu-toolbar">{{menu_label}}</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/' + dashboard_root" [ngClass]="{'active-light-mode': rlaHome.isActive && !isDarkThemeMode,'active-dark-mode': rlaHome.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaHome="routerLinkActive" [routerLinkActiveOptions]="{exact: true}"><mat-icon matListIcon>home</mat-icon>{{home_label}}</a>
+        <a mat-list-item [routerLink]="cards_root" [ngClass]="{'active-light-mode': rlaCards.isActive && !isDarkThemeMode,'active-dark-mode': rlaCards.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaCards="routerLinkActive"><mat-icon matListIcon>credit_card</mat-icon>{{cards_label}}</a>
+        <a mat-list-item [routerLink]="movements_root" [ngClass]="{'active-light-mode': rlaMovs.isActive && !isDarkThemeMode,'active-dark-mode': rlaMovs.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaMovs="routerLinkActive"><mat-icon matListIcon>compare_arrows</mat-icon>{{movements_label}}</a>
+        <a mat-list-item [routerLink]="transfer_root" [ngClass]="{'active-light-mode': rlaTrsf.isActive && !isDarkThemeMode,'active-dark-mode': rlaTrsf.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaTrsf="routerLinkActive"><mat-icon matListIcon>paid</mat-icon>{{transfer_label}}</a>
+        <a mat-list-item [routerLink]="appointments_root" [ngClass]="{'active-light-mode': rlaApp.isActive && !isDarkThemeMode,'active-dark-mode': rlaApp.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaApp="routerLinkActive"><mat-icon matListIcon>event</mat-icon>{{appointments_label}}</a>
+        <a mat-list-item [routerLink]="taxes_root" [ngClass]="{'active-light-mode': rlaTaxes.isActive && !isDarkThemeMode,'active-dark-mode': rlaTaxes.isActive && isDarkThemeMode}"
+           routerLinkActive #rlaTaxes="routerLinkActive"><mat-icon matListIcon>summarize</mat-icon>{{taxes_label}}</a>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header class="meph-custom">
+              <mat-panel-title style="display: flex; justify-content: center; padding-top: 14px">
+                  <p *ngIf="userStore.user$ | async as currentUser"><i style="font-size: 22px!important;" class="inline-icon material-icons">account_circle</i>&nbsp;{{currentUser.displayName}}</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button (click)="handleLogout()" mat-flat-button>{{logout_label}}&nbsp;<i class="material-icons">logout</i></button>   
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar [ngClass]="isDarkThemeMode ? 'toolbar-dark-mode' : 'toolbar-light-mode'">      
+        <span style="color: white;">{{appName_label}}</span>
+        <background-toolbar-animation [isDarkThemeMode] = "isDarkThemeMode"></background-toolbar-animation>
+        <mat-slide-toggle class="please-not-override-me" [(ngModel)] = "isDarkThemeMode" labelPosition="before" (change)="storeThemeSelection()">
+          <mat-icon *ngIf="!isDarkThemeMode">dark_mode</mat-icon>
+          <mat-icon *ngIf="isDarkThemeMode">light_mode</mat-icon>
+        </mat-slide-toggle>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

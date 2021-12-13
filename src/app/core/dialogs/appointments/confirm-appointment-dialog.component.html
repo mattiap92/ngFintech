@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{confirm_phrase}}</h1>
+<div mat-dialog-content>
+  <p>L'appuntamento sarà fissato per il giorno {{appointmentToConfirm.day | date:'dd/MM/yyyy'}} alle {{appointmentToConfirm.slot}}.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{cancel_word}}</button>
+  <button mat-button (click)="onConfirmClick()" cdkFocusInitial>{{confirm_word}}</button>
+</div>

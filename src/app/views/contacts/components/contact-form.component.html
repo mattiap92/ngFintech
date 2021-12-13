@@ -1,0 +1,37 @@
+<form class="vertically-oriented" [formGroup] = "contactForm">
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>{{name_label}}</mat-label>
+    <input matInput formControlName="name"/>
+    <mat-error *ngIf="contactForm?.controls?.name?.touched && contactForm?.controls?.name?.invalid">
+      <span *ngIf="contactForm?.controls?.name?.errors?.required">{{required_error}}</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{surname_label}}</mat-label>
+    <input matInput formControlName="surname"/>
+    <mat-error *ngIf="contactForm?.controls?.surname?.touched && contactForm?.controls?.surname?.invalid">
+      <span *ngIf="contactForm?.controls?.surname?.errors?.required">{{required_error}}</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+      <mat-label>{{iban_label}}</mat-label>
+      <input matInput formControlName="iban" maxLength="27"/>
+      <mat-error *ngIf="contactForm?.controls?.iban?.touched && contactForm?.controls?.iban?.invalid">
+        <span *ngIf="contactForm?.controls?.iban?.errors?.required">{{required_error}}</span>
+        <span *ngIf="!contactForm?.controls?.iban?.errors?.required && contactForm?.controls?.iban?.errors?.isNotValidIBAN">{{ibanInvalidFormat_error}}</span>
+      </mat-error>
+  </mat-form-field>
+
+  <button
+    mat-stroked-button
+    color="primary"
+    type="submit"
+    [disabled]="contactForm.invalid"
+    (click)="saveContactButtonClicked.emit(contactForm)"
+  >
+    {{save_word}}
+  </button>
+</form>

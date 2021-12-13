@@ -1,0 +1,35 @@
+<mat-card class="full-page-height-card">
+  <mat-card-header  class="horizontally-centered">
+    <mat-card-title style="font-size: medium;">{{cards_title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  <mat-list>
+      <mat-list-item *ngFor="let card of cards">
+        <mat-icon matListIcon>credit_card</mat-icon>
+        <h3 matLine> {{card.number}} </h3>
+        <p matLine>
+          <span> {{card.amount}} </span>
+          <span class="demo-2"> -- {{card.type}} </span>
+        </p>
+        <div class="end-of-the-row">
+          <button mat-icon-button
+                  [matTooltip]= showMovements_tooltip
+                  (click)="cardMovementsToCheckId.emit(card._id)">
+                  <mat-icon>compare_arrows</mat-icon>  
+          </button>
+          <button mat-icon-button
+                  [matTooltip]= remove_tooltip
+                  (click)="cardToDeleteId.emit(card._id)">
+                  <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+  </mat-list>
+  
+  <button mat-raised-button
+          style="width: 100%"
+          (click)="addCardButtonClicked.emit()">
+          {{add_word}}
+  </button>
+</mat-card-content>
+</mat-card>

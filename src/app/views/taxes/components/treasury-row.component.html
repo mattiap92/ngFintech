@@ -1,0 +1,47 @@
+<form class="vertically-oriented" [formGroup]="treasuryForm">
+   <div id="controlValueAccessorArrayChild" class="inlineBlocKMode">
+     <mat-form-field appearance="fill">
+        <mat-label>{{tributeCode_label}}</mat-label>
+        <input matInput formControlName="tributeCode" 
+                        maxlength="10"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('tributeCode', 'tributeCodeRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('tributeCodeRequired')">{{required_error}}</span>&nbsp;
+       </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{year_label}}</mat-label>
+        <input matInput formControlName="year"
+                        type="number"
+                        maxlength="10" 
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('year', 'yearRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('yearRequired')">{{required_error}}</span>&nbsp;
+       </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{debitImport_label}}</mat-label>
+        <input matInput formControlName="debit"
+                        maxlength="10" 
+                        type="number"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('debit', 'debitRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('debitRequired')">{{required_error}}</span>&nbsp;
+       </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{creditImport_label}}</mat-label>
+        <input matInput formControlName="credit"
+                        maxlength="10"
+                        type="number"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('credit', 'creditRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('creditRequired')">{{required_error}}</span>&nbsp;
+       </mat-error>
+     </mat-form-field>
+  </div>
+</form>

@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+    <h3>{{selectionCard_phrase}}</h3>
+        <form class="vertically-oriented" [formGroup]="selectCardForm">
+            <mat-form-field appearance="fill"> 
+                <mat-select formControlName="card">
+                    <mat-option *ngFor="let card of cards" [value]="card.number">
+                    {{card.number}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+</div>
+<mat-dialog-actions class="horizontally-distributed">
+    <button mat-button (click)="onNoClick()">{{cancel_word}}</button>
+    <button mat-button (click)="onConfirmClick()">{{confirm_word}}</button>
+</mat-dialog-actions>

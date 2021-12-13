@@ -1,0 +1,30 @@
+<body>
+    <div [ngClass]="isDarkThemeMode ? 'wrapper-dark-mode' : 'wrapper-light-mode'">
+        <h2 style="display: flex; align-items: center;">
+            {{appName_label}}&nbsp;
+            <img src="assets/images/angular-typescript-logo.png" width="140" height="80">
+        </h2>
+        <div class="login-theme-toggle">
+            <mat-button-toggle-group class="please-not-override-me" [(ngModel)]="isDarkThemeMode">
+                <mat-button-toggle [value]="false" (change)="storeThemeSelection()">
+                    <button mat-icon-button style="color: goldenrod; background: transparent;" [disabled]="!isDarkThemeMode"><mat-icon>light_mode</mat-icon> </button>
+               </mat-button-toggle>
+                <mat-button-toggle [value]="true" (change)="storeThemeSelection()">
+                    <button mat-icon-button style="color: yellowgreen; background: transparent;" [disabled]="isDarkThemeMode"><mat-icon>dark_mode</mat-icon> </button>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <background-login-animation [isDarkThemeMode] = "isDarkThemeMode"></background-login-animation>
+    </div>
+    <div  class="full-page-centered" [ngClass]="isDarkThemeMode ? 'dark-theme' : 'light-theme'">
+        <mat-card class="login-card">
+            <router-outlet></router-outlet>  
+            <mat-card-actions>
+                <div class="horizontally-centered">
+                    <button  mat-flat-button *ngIf="router.url === '/login/signin'" (click)="navigateToRegister()"><u>{{createNew_phrase}}</u></button>
+                    <button  mat-flat-button *ngIf="router.url === '/login/register'" (click)="navigateToSignIn()"><u>{{useExisting_phrase}}</u></button>   
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</body>

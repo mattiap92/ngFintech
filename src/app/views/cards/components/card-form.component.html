@@ -1,0 +1,79 @@
+<mat-card class="full-page-height-card">
+  <mat-card-header  class="horizontally-centered">
+    <mat-card-title style="font-size: medium;">{{addCard_title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  <form class="vertically-oriented " [formGroup]="cardForm">
+    <mat-form-field appearance="outline">
+        <mat-label>{{cardType_label}}</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of typesOfCard" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="cardForm?.controls?.type?.touched && cardForm?.controls?.type?.invalid">
+          <span *ngIf="cardForm?.controls?.type?.errors?.required">{{required_error}}</span>
+        </mat-error>
+      </mat-form-field>
+    
+    <div class="horizontally-distributed">
+          <mat-form-field style = "width: 49.8% "appearance="fill">
+            <mat-label>{{name_label}}</mat-label>
+            <input matInput formControlName="name"/>
+            <mat-error *ngIf="cardForm?.controls?.name?.touched && cardForm?.controls?.name?.invalid">
+              <span *ngIf="cardForm?.controls?.name?.errors?.required">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field style = "width: 49.8% " appearance="fill">
+            <mat-label>{{surname_label}}</mat-label>
+            <input matInput formControlName="surname"/>
+            <mat-error *ngIf="cardForm?.controls?.surname?.touched && cardForm?.controls?.surname?.invalid">
+              <span *ngIf="cardForm?.controls?.surname?.errors?.required">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+    </div>
+
+
+    <mat-form-field appearance="outline">
+        <mat-label>{{cardNumber_label}}</mat-label>
+        <input matInput formControlName="number" minlength="16" maxlength="16"/>
+        <mat-error *ngIf="cardForm?.controls?.number?.touched && cardForm?.controls?.number?.invalid">
+          <span *ngIf="cardForm?.controls?.number?.errors?.required">{{required_error}}</span>
+        </mat-error>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="outline">
+        <mat-label>{{secureCode_label}}</mat-label>
+        <input matInput type="number"
+               oninput="this.value= this.value.slice(0, this.maxLength)"
+               formControlName="csc"
+               maxlength="3"/>
+        <mat-error *ngIf="cardForm?.controls?.csc?.touched && cardForm?.controls?.csc?.invalid">
+          <span *ngIf="cardForm?.controls?.csc?.errors?.required">{{required_error}}</span>
+          <span *ngIf="!cardForm?.controls?.csc?.errors?.required && cardForm?.controls?.csc?.errors?.isNotEnoughLong">{{notEnoughLong_error}}</span>
+        </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      [disabled]="cardForm.invalid"
+      (click)="addNewCardButtonClicked.emit(cardForm.value)"
+    >
+      {{addCard_word}}
+    </button>
+    <br>
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      (click)="cancelButtonClicked.emit()"
+    >
+     {{cancel_word}}
+  </button>
+  </form>
+</mat-card-content>
+</mat-card> 

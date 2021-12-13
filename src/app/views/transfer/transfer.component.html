@@ -1,0 +1,84 @@
+<mat-card class="full-page-height-card">
+  <mat-card-content>
+    <form class="vertically-oriented" [formGroup]="transferForm">
+
+      <button
+        mat-stroked-button
+        color="primary"
+        type="button"
+        (click)="openDialog()"
+      >
+       {{contactList_word}}
+      </button>
+      <br>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>{{name_label}}</mat-label>
+        <input matInput formControlName="name"/>
+        <mat-error *ngIf="transferForm?.controls?.name?.touched && transferForm?.controls?.name?.invalid">
+          <span *ngIf="transferForm?.controls?.name?.errors?.required">{{required_error}}</span>
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>{{surname_label}}</mat-label>
+        <input matInput formControlName="surname"/>
+        <mat-error *ngIf="transferForm?.controls?.surname?.touched && transferForm?.controls?.surname?.invalid">
+          <span *ngIf="transferForm?.controls?.surname?.errors?.required">{{required_error}}</span>
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>{{iban_label}}</mat-label>
+        <input matInput formControlName="iban" maxLength="27"/>
+        <mat-error *ngIf="transferForm?.controls?.iban?.touched && transferForm?.controls?.iban?.invalid">
+          <span *ngIf="transferForm?.controls?.iban?.errors?.required">{{required_error}}</span>
+          <span *ngIf="!transferForm?.controls?.iban?.errors?.required && transferForm?.controls?.iban?.errors?.isNotValidIBAN">{{ibanInvalidFormat_error}}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <ng-container formGroupName="amountCardIdGroup">
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{amount_label}}</mat-label>
+          <input matInput formControlName="amount"
+                          [errorStateMatcher]="transferErrorMatcher"/>
+          <mat-error *ngIf="transferForm.get('amountCardIdGroup.amount')?.touched && transferForm.get('amountCardIdGroup.amount')?.invalid">
+            <span *ngIf="transferForm.get('amountCardIdGroup.amount')?.errors?.required">{{required_error}}</span>
+            <span *ngIf="transferForm.get('amountCardIdGroup.amount')?.errors?.isNotNumber">{{notNumber_error}}</span>
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>{{selectCard_label}}</mat-label>
+          <mat-select formControlName="cardId"
+                      [errorStateMatcher]="transferErrorMatcher">
+            <mat-option *ngFor="let card of origin_cards$ | async" [value]="card._id">
+              {{card.number}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="transferForm.get('amountCardIdGroup.cardId')?.touched && transferForm.get('amountCardIdGroup.cardId')?.invalid">
+            <span *ngIf="transferForm.get('amountCardIdGroup.cardId')?.errors?.required">{{required_error}}</span>
+            <span *ngIf="transferForm.get('amountCardIdGroup.cardId')?.errors?.cardIdIsNotValid">{{cardDoNotExist_error}}</span>
+          </mat-error>
+          <mat-error>
+            <span *ngIf="transferForm.get('amountCardIdGroup')?.hasError('thereIsNotEnoughMoney')">{{notEnoughMoney_error}}</span>
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+      <br>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        [disabled]="transferForm.invalid"
+        (click)="manageTransfer(transferForm)"
+      > 
+       {{transferMoney_word}}
+      </button>
+    </form> 
+  </mat-card-content>
+</mat-card> 
+
+
+

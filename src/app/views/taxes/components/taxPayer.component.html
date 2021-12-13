@@ -1,0 +1,86 @@
+<form class="vertically-oriented" [formGroup]="taxPayerForm">
+        <mat-form-field appearance="fill">
+            <mat-label>{{taxCode_label}}</mat-label>
+            <input matInput formControlName="taxCode"
+                            maxlength="16"
+                            (focus)="markAsTouched()"
+                            [errorStateMatcher]="errorMatcher('taxCode', 'taxCodeRequired', 'isNotValidTaxCode')"/>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('taxCodeRequired')">{{required_error}}</span>
+              <span *ngIf="!ngControl?.hasError('taxCodeRequired') && ngControl?.hasError('isNotValidTaxCode')">{{taxCodeInvalidFormat_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{surname_label}}</mat-label>
+            <input matInput formControlName="surname"
+                            (focus)="markAsTouched()"
+                            [errorStateMatcher]="errorMatcher('surname', 'surnameRequired')"/>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('surnameRequired')">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{name_label}}</mat-label>
+            <input matInput formControlName="name"
+                            (focus)="markAsTouched()"
+                            [errorStateMatcher]="errorMatcher('name', 'nameRequired')"/>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('nameRequired')">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{birthDate_label}}</mat-label>
+            <input matInput  #myDatePickerInput
+                             formControlName="birthDate"
+                             [matDatepicker]="picker"
+                             [min]="startDate"
+                             [max]="todayDate"
+                             (focus)="markAsTouched()"
+                             [errorStateMatcher]="errorMatcher('birthDate', 'birthDateRequired')"/>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('birthDateRequired')">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{sex_label}}</mat-label>
+            <mat-select formControlName="sex"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('sex', 'sexRequired')">
+              <mat-option>{{noneOption_label}}</mat-option>
+              <mat-option *ngFor="let sex of sexes" [value]="sex">
+                {{sex}}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('sexRequired')">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{province_label}}</mat-label>
+            <input matInput formControlName="birthProvince"
+                            (focus)="markAsTouched()"
+                            [errorStateMatcher]="errorMatcher('birthProvince', 'birthProvinceRequired')"/>
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('birthProvinceRequired')">{{required_error}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{city_label}}</mat-label>
+            <input matInput formControlName="birthCity"
+                            (focus)="markAsTouched()"
+                            [matAutocomplete]="cityAutoComplete"
+                            [errorStateMatcher]="errorMatcher('birthCity', 'birthCityRequired', 'cityDoNotExist')"/>
+            <mat-autocomplete #cityAutoComplete="matAutocomplete" [displayWith]="displayCity">
+                  <mat-option (onSelectionChange)="setBirthProvinceByCity(city)" *ngFor="let city of filteredCities | async" [value]="city.nome">
+                          {{city.nome}}
+                  </mat-option>
+            </mat-autocomplete>  
+            <mat-error>
+              <span *ngIf="ngControl?.hasError('birthCityRequired')">{{required_error}}</span>&nbsp;
+              <span *ngIf="ngControl?.hasError('cityDoNotExist')">{{cityDoNotExist_error}}</span>
+            </mat-error>
+          </mat-form-field>   
+
+</form>

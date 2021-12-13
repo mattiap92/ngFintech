@@ -1,0 +1,22 @@
+<mat-card class="full-page-height-card">
+    <mat-card-content>
+    <form style="width: 400px"class="vertically-oriented">
+      <mat-form-field appearance="outline">
+        <mat-label>{{dateChoice_label}}</mat-label>
+        <input matInput #myDatePickerInput
+                        [matDatepicker]="picker"
+                        [matDatepickerFilter]="dateFilter"
+                        (dateChange)="manageSelectedDate($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-selection-list [multiple]="false">
+          <div *ngIf="dateSelectedFromPicker" mat-subheader>{{availableHours_phrase}}</div>
+          <mat-list-option *ngFor="let slot of dateSelectedFromPicker?.slots" (click)="finalizeAppointmentRequest(slot)">
+            <mat-icon matListIcon>access_time</mat-icon>
+            <h3 matLine>{{slot}}</h3>
+          </mat-list-option>
+      </mat-selection-list>
+    </form>
+  </mat-card-content>
+</mat-card> 

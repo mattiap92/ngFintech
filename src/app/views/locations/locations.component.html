@@ -1,0 +1,10 @@
+<mat-sidenav-container class="full-page-centered">
+    <mat-sidenav #sidenavReference mode="side" position="end">
+      <location-map #myMap [customCoordinates]="locationCoordinates"></location-map>
+      <location-form #locationFormReference [available_dates$]="origin_day_with_slots$" (dateAppointmentApplied)="getAppointmentToConfirmDetails($event)"></location-form> 
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <location-list (locationClicked)="getSelectedLocationId($event)" [locations]="origin_locations$ | async"></location-list> 
+    </mat-sidenav-content>
+</mat-sidenav-container>

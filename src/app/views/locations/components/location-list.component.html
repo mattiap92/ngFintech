@@ -1,0 +1,14 @@
+<mat-card class="full-page-height-card">
+    <mat-card-header  class="horizontally-centered">
+      <mat-card-title style="font-size: medium;">{{locations_title}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    <mat-selection-list ngModel [multiple]="false" (ngModelChange)="locationClicked.emit($event)">
+        <mat-list-option *ngFor="let location of locations" [value]="location._id">
+          <mat-icon matListIcon>domain</mat-icon>
+          <h3 matLine> {{location.name}} </h3>
+          <p matLine>  {{location.address}}</p>
+        </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+</mat-card>

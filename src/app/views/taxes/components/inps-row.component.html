@@ -1,0 +1,83 @@
+<form class="vertically-oriented" [formGroup]="inpsForm">
+  <div id="controlValueAccessorArrayChild" class="inlineBlocKMode">
+     <mat-form-field appearance="fill">
+        <mat-label>{{siteCode_label}}</mat-label>
+        <input matInput formControlName= "siteCode"
+                        maxlength="10"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('siteCode', 'siteCodeRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('siteCodeRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{contributionCausal_label}}</mat-label>
+        <input matInput formControlName= "contributionCausal"
+                        maxlength="10"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('contributionCausal', 'contributionCausalRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('contributionCausalRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{inpsCode_label}}</mat-label>
+        <input matInput formControlName= "inpsCode"
+                        maxlength="10"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('inpsCode', 'inpsCodeRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('inpsCodeRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{fromDate_label}}</mat-label>
+        <input matInput formControlName= "fromDate"
+                        #myDatePickerInputFrom
+                        [matDatepicker]="pickerFrom"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('fromDate', 'fromDateRequired', 'fromDateIsAfterToDate')"/>
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('fromDateRequired')">{{required_error}}</span>&nbsp;
+         <span *ngIf="ngControl?.hasError('fromDateIsAfterToDate')">{{fromDateIsAfterToDate_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{toDate_label}}</mat-label>
+        <input matInput formControlName= "toDate"
+                        #myDatePickerInputTO
+                        [matDatepicker]="pickerTo"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('toDate', 'toDateRequired')"/>
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('toDateRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{debit_label}}</mat-label>
+        <input matInput formControlName= "debit"
+                        #input maxlength="10"
+                        type="number"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('debit', 'debitRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('debitRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+     <mat-form-field appearance="fill">
+        <mat-label>{{credit_label}}</mat-label>
+        <input matInput formControlName= "credit"
+                        #input maxlength="10"
+                        type="number"
+                        (focus)="markAsTouched()"
+                        [errorStateMatcher]="errorMatcher('credit', 'creditRequired')"/>
+        <mat-error>
+         <span *ngIf="ngControl?.hasError('creditRequired')">{{required_error}}</span>&nbsp;
+        </mat-error>
+     </mat-form-field>
+  </div>
+</form>

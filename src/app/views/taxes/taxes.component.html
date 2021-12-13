@@ -1,0 +1,82 @@
+<mat-card class="fit-page-content-card">
+    <mat-card-content>
+      <h3><b>{{taxPayer_label}}</b></h3>
+      <form class="vertically-oriented" [formGroup]="taxesForm">
+        <br>
+        <ng-container>
+          <taxPayer formControlName="taxPayer"></taxPayer>
+        </ng-container>
+        <h3><b>{{treasury_label}}</b></h3>
+        <ng-container formArrayName="treasuryRows">
+          <div class="row-mode-with-gap" *ngFor="let treasuryRow of treasuryRowsArray.controls; let i = index">
+            <treasury-row [formControlName]="i"></treasury-row>
+              <button style="bottom: 9px;"
+                      mat-mini-fab color="warn"
+                      (click)="removeTreasuryRow(i)">
+                      <mat-icon>delete_outline</mat-icon>
+              </button>
+          </div>
+          <br>
+          <div class="totals-mode" *ngIf="treasuryRowsArray.length > 0">
+            <i>{{totalDebit_label}}: <b>€ {{treasuryDebitTotal$ | async}}</b></i>
+            <i>{{totalCredit_label}}: <b>€ {{treasuryCreditTotal$ | async}}</b></i>
+          </div>
+          <br>
+          <div>
+            <button mat-mini-fab color="primary"
+                    (click)="addTreasuryRow()">
+                    <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+        <br>
+        <br>
+        <br>
+        <h3><b>{{inps_label}}</b></h3>
+        <ng-container formArrayName="inpsRows">
+          <div class="row-mode-with-gap"  *ngFor="let inpsRow of inpsRowsArray.controls; let i = index">
+            <inps-row [formControlName]="i"></inps-row>
+            <button style="bottom: 9px;"
+                    mat-mini-fab color="warn"
+                    (click)="removeInpsRow(i)">
+                    <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+          <br>
+          <div class="totals-mode" *ngIf="inpsRowsArray.length > 0">
+            <i>{{totalDebit_label}}: <b>€ {{inpsDebitTotal$ | async}}</b></i>
+            <i>{{totalCredit_label}}: <b>€ {{inpsCreditTotal$ | async}}</b></i>
+          </div>
+          <br>
+          <div>
+            <button mat-mini-fab color="primary"
+                    (click)="addInpsRow()">
+                    <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+        <br>
+        <br>
+        <h3 *ngIf="totalFormBalance$ | async as total">
+          <b>{{totalToPay_label}}: € {{total}}</b>
+        </h3>
+        <mat-hint *ngIf="(totalFormBalance$ | async) && !userHaveToPay" style="color: red;">
+               <span>{{creditPosition_error}}</span>
+        </mat-hint>
+        <button
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        [disabled]="taxesForm.invalid || !userHaveToPay"
+        (click)="manageSendButtonClicked(taxesForm)"
+        > 
+         {{send_word}}
+        </button>
+      </form> 
+    </mat-card-content>
+  </mat-card> 
+  <br>
+
+
+  
+  

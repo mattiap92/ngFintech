@@ -1,0 +1,24 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            <div class="horizontally-distributed">
+                <div class="oblique-style">
+                     [{{date}}]&nbsp;&nbsp;&nbsp;
+                </div>
+                <div [ngClass]="type == 'in' ? 'green-text' : 'red-text'">
+                    €{{amount}}&nbsp;&nbsp;
+                </div> 
+                    {{title}}
+            </div>
+        </mat-panel-title>
+        <mat-panel-description style="text-align:right">
+            {{description | truncatePipe}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+            {{description}}
+    </mat-expansion-panel>
+</mat-accordion>
+<br>
+  

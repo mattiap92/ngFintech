@@ -1,0 +1,33 @@
+<mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>{{search_label}}</mat-label>
+    <input matInput #textToSearchReference [(ngModel)]="search">
+    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+<mat-list>
+    <mat-list-item *ngFor="let contact of contacts | filterPipe: textToSearchReference.value">
+      <mat-icon matListIcon>person</mat-icon>
+      <h3 matLine> {{contact.name}} {{contact.surname}} </h3>
+      <p matLine>
+        <span class="demo-2">{{contact.iban}} </span>
+      </p>
+      <div class="end-of-the-row">
+        <button mat-icon-button
+                [matTooltip]= select_tooltip
+                (click)="selectionIconClicked.emit(contact._id)">
+                <mat-icon>check</mat-icon>  
+        </button>
+        <button mat-icon-button
+                [matTooltip]= edit_tooltip
+                (click)="editIconClicked.emit(contact._id)">
+                <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button
+                [matTooltip]= remove_tooltip
+                (click)="deleteIconClicked.emit(contact._id)">
+                <mat-icon>delete</mat-icon>
+</button>
+      </div>
+    </mat-list-item>
+</mat-list>
